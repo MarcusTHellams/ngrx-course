@@ -372,7 +372,7 @@ export function findLessonsForCourse(courseId:number) {
 export function authenticate(email:string, password:string) {
 
     const user:any = Object.values(USERS).find(user => user.email === email);
-
+  console.log(password, user.password);
     if (user && user.password == password) {
         return user;
     }
