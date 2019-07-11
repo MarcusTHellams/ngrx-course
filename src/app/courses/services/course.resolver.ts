@@ -1,3 +1,4 @@
+import { CourseRequestedAction } from './../course.actions';
 
 
 
@@ -9,6 +10,7 @@ import {CoursesService} from "./courses.service";
 import {AppState} from "../../reducers";
 import {select, Store} from "@ngrx/store";
 import {filter, first, tap} from "rxjs/operators";
+import { selectCourseById } from "../course.selectors";
 
 
 
@@ -25,7 +27,15 @@ export class CourseResolver implements Resolve<Course> {
 
         const courseId = route.params['id'];
 
-        return this.coursesService.findCourseById(courseId);
+      return this.store.select(selectCourseById(courseId))
+        .pipe(tap((course) => {
+          if (!course) {
+            this.store.dispatch(new CourseRequestedAction(courseId))
+          }
+        }),
+          filter((course) => !!course),
+          first()
+        );
     }
 
 }
