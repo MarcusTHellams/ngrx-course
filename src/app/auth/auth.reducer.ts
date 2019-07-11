@@ -1,23 +1,30 @@
-import { AuthActionTypes } from './auth.actions';
 import { AuthState } from './auth-state';
+import * as Auth from './auth.actions';
 
-const initialState:AuthState = {
+
+export const initialAuthState: AuthState = {
   loggedIn: false,
   user: undefined
-}
+};
 
-export const authReducer = (state: AuthState = initialState, action): AuthState => {
+export function authReducer(state = initialAuthState, action: Auth.AuthActions): AuthState {
   const { type, payload } = action;
   switch (type) {
-    case AuthActionTypes.LoginAction:
+
+    case Auth.AuthActionTypes.LoginAction:
       return {
         ...state,
         loggedIn: true,
-        user: payload.user
+        user: payload
       }
+    case Auth.AuthActionTypes.LogoutAction:
+      return {
+        ...state,
+        loggedIn: false,
+        user: undefined
+      }
+
     default:
       return state;
   }
- };
-
-
+}

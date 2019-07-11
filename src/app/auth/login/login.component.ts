@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.auth
       .login(email, password)
       .pipe(tap(user => {
-        this.store.dispatch(new LoginAction({user}));
+        this.store.dispatch(new LoginAction(user));
         this.router.navigateByUrl('/courses');
       }))
       .subscribe(noop, error => alert(`Login Failed`));

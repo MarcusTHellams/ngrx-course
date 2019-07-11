@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -26,7 +27,7 @@ const routes: Routes = [
     {
         path: 'courses',
         loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
-        canActivate: [],
+        canActivate: [AuthGuard],
     },
     {
         path: "**",
