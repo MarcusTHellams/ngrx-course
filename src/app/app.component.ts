@@ -5,7 +5,6 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import { Observable } from "rxjs";
 import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +16,7 @@ export class AppComponent implements OnInit {
   loggedOut$: Observable<boolean>;
 
 
-    constructor(private readonly store:Store<AppState>, private readonly router:Router) {
+    constructor(private readonly store:Store<AppState>) {
 
     }
 
@@ -30,7 +29,6 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.store.dispatch(new LogoutAction())
-    this.router.navigateByUrl('/login');
     }
 
 
