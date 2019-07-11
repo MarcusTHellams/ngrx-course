@@ -30,7 +30,7 @@ export class CourseResolver implements Resolve<Course> {
       return this.store.select(selectCourseById(courseId))
         .pipe(tap((course) => {
           if (!course) {
-            this.store.dispatch(new CourseRequestedAction(courseId))
+            this.store.dispatch(new CourseRequestedAction(courseId));
           }
         }),
           filter((course) => !!course),
